@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="network_choose">
+        <item>请选择网络</item>
+        <item>中国移动</item>
+        <item>中国电信</item>
+        <item>中国联通</item>
+        <item>无锡学院</item>
+    </string-array>
+</resources>
