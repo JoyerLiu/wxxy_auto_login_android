@@ -44,7 +44,6 @@ public class SuccussActivity extends AppCompatActivity {
         buttonUnbind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: 解绑
                 AlertDialog alertDialog1 = new AlertDialog.Builder(SuccussActivity.this)
                         .setTitle("确认操作")//标题
                         .setMessage("确定要注销登录吗？")//内容
