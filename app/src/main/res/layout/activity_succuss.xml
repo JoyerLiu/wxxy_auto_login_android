@@ -49,11 +49,26 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/buttonUnbind"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="注销登录" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewAbout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:text="关于" />
+
+                <Button
+                    android:id="@+id/buttonUnbind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="注销登录" />
+            </LinearLayout>
+
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

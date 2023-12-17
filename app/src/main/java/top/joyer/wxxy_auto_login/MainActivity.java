@@ -1,18 +1,26 @@
 package top.joyer.wxxy_auto_login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextPsw;
 
     TextView textViewAbout;
+    TextView textViewWifiStatue;
+    ImageView imageViewWifiStatue;
 
     Map<String,String> network= new HashMap<>();
 
@@ -63,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         editTextPsw=findViewById(R.id.editTextTextPassword);
         editTextSno=findViewById(R.id.editTextSno);
         textViewAbout=findViewById(R.id.textViewAbout);
+        textViewWifiStatue=findViewById(R.id.textViewWifiStatue);
+        imageViewWifiStatue=findViewById(R.id.imageViewWifiStatue);
 
         textViewAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("Github", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Uri uri = Uri.parse("https://www.baidu.com");
+                                Uri uri = Uri.parse("https://github.com/JoyerLiu/wxxy_auto_login_android");
                                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                 startActivity(intent);
                             }
@@ -89,12 +101,16 @@ public class MainActivity extends AppCompatActivity {
         auto_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(auto_login.isChecked());
-                Toast.makeText(MainActivity.this, "下一次打开该程序将自动登录", Toast.LENGTH_SHORT).show();
+                if(auto_login.isChecked()){
+                    Toast.makeText(MainActivity.this, "下一次打开该程序将自动登录", Toast.LENGTH_SHORT).show();
+                }
+                saveData();
+
             }
         });
 
         loadData();
+        getWifiSSID();
 
         if(auto_login.isChecked() && !getIntent().getBooleanExtra("isUnbind",false)){
             //自动登录
@@ -115,6 +131,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void getWifiSSID(){
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 请求定位权限
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        } else {
+            // 权限已经被授予，可以获取SSID
+            WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            String ssid = wifiInfo.getSSID();
+            ssid=ssid.substring(1,ssid.length()-1); //裁切不必要部分
+            if(ssid.equals("i-wxxy")){
+                textViewWifiStatue.setText("已连接到 i-wxxy");
+                imageViewWifiStatue.setImageDrawable(getDrawable(R.drawable.ic_wifi_great));
+            }else{
+                textViewWifiStatue.setText("未连接到 i-wxxy");
+                imageViewWifiStatue.setImageDrawable(getDrawable(R.drawable.ic_wifi_bad));
+            }
+        }
+    }
+
     private boolean checkInput(){
         if(editTextSno.getText().toString().isEmpty()|| editTextPsw.getText().toString().isEmpty()|| spinnerNetworkChoose.getSelectedItem().toString()=="请选择网络"){
             AlertDialog alertDialog1 = new AlertDialog.Builder(this)
@@ -202,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                                     "&user_password=" + psw +
                                     "&wlan_user_ip=" +
                                     "&wlan_user_ipv6=" +
-                                    "&wlan_user_mac=000000000000" +
+                                    "&wlan_user_mac=" +
                                     "&wlan_ac_ip=10.1.1.1" +
                                     "&wlan_ac_name=" +
                                     "&jsVersion=4.1.3" +

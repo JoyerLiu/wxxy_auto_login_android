@@ -15,6 +15,12 @@
             android:layout_height="match_parent"
 
             android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
         <LinearLayout
             android:layout_width="350dp"
             android:layout_height="match_parent"
@@ -26,10 +32,31 @@
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="10dp"
                     android:text="无锡学院\n校园网登录"
                     android:textSize="40sp" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="40dp">
+
+                <ImageView
+                    android:id="@+id/imageViewWifiStatue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+
+                    app:srcCompat="@drawable/ic_wifi_bad" />
+
+                <TextView
+                    android:id="@+id/textViewWifiStatue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未连接到 i-wxxy" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,13 +114,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
 
                     <Switch
                         android:id="@+id/switch1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+
                         android:text="自动登录" />
 
                     <TextView
@@ -120,10 +148,6 @@
             </LinearLayout>
 
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

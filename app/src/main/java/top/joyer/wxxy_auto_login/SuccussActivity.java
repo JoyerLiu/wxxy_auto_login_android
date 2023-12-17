@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,8 @@ public class SuccussActivity extends AppCompatActivity {
     TextView textViewSno;
     TextView textViewNet;
 
+    TextView textViewAbout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +40,32 @@ public class SuccussActivity extends AppCompatActivity {
         buttonUnbind=findViewById(R.id.buttonUnbind);
         textViewNet=findViewById(R.id.textViewNet);
         textViewSno=findViewById(R.id.textViewSno);
+        textViewAbout=findViewById(R.id.textViewAbout2);
+
         textViewSno.setText("学号："+getIntent().getStringExtra("sno"));
         textViewNet.setText("登录的网络："+getIntent().getStringExtra("net"));
 
+        textViewAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog alertDialog1 = new AlertDialog.Builder(SuccussActivity.this)
+                        .setTitle("关于")//标题
+                        .setMessage("此软件为开源项目，严禁倒卖。\n" +
+                                "出现问题请到Github ISSUE 提交。\n" +
+                                "by JoyerLiu")//内容
+                        .setPositiveButton("确定",null)
+                        .setNegativeButton("Github", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Uri uri = Uri.parse("https://github.com/JoyerLiu/wxxy_auto_login_android");
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                            }
+                        })
+                        .create();
+                alertDialog1.show();
+            }
+        });
 
         buttonUnbind.setOnClickListener(new View.OnClickListener() {
             @Override
