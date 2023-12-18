@@ -9,4 +9,6 @@
 
 此项目完全开源，仅用于学习交流，禁止倒卖。
 
+实现方法来自本人博客：[无锡学院校园网 实现路由器自动登录上网 支持多设备连接](https://blog.joyer.top/2021-12-03-3/)
+
 有问题请通过 [ISSUE](https://github.com/JoyerLiu/wxxy_auto_login_android/issues) 提交，下载请看 [Releases](https://github.com/JoyerLiu/wxxy_auto_login_android/releases) 中的最新版本。
